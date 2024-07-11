@@ -6,5 +6,15 @@
   "action": {
     "default_popup": "main.html",
     "default_icon": "ic.png"
-  }
+  },
+  "permissions": ["activeTab", "scripting"],
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/contents.js"]
+    }
+  ]
 }
