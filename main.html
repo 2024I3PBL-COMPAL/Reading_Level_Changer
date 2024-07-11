@@ -10,9 +10,8 @@
   </style>
   <body>
     <main>
-      <h1>Reading Level Changer</h1>
-      <!-- <script src="popup.js"></script> -->
-      <label for="customRange1" class="form-label">Example range</label>
+      <h2>Reading Level Changer</h2>
+      <hr class="dropdown-divider" />
       <input
         type="range"
         class="form-range"
@@ -20,9 +19,18 @@
         min="1"
         max="3"
         step="1.0"
+        value="3"
       />
 
-      <button id="convertButton">Simplify Text</button>
+      <div class="row pb-2">
+        <div class="col">Kids</div>
+        <div class="col text-center">Student</div>
+        <div class="col text-end">Adult</div>
+      </div>
+
+      <button id="convertButton" type="button" class="btn btn-primary">
+        Change!
+      </button>
 
       <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
       <script src="/js/popup.js"></script>

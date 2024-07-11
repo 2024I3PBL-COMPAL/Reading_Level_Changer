@@ -3,9 +3,20 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  const GoogleAPIKey = "YourKey";
+  const GoogleAPIKey = "SECRET";
 
   if (message.action === "simplifyText") {
+    console.log(message.level);
+    let targetText = "";
+
+    if (message.level === 1) {
+      targetText = "kindergartner who Learning English for the first time";
+    } else if (message.level === 2) {
+      targetText = "middle school students";
+    } else if (message.level === 3) {
+      targetText = "adult";
+    }
+
     fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GoogleAPIKey}`,
       {
@@ -16,7 +27,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         body: JSON.stringify({
           system_instruction: {
             parts: {
-              text: "From now on, change the words in the sentence that elementary school students entered so that they can know. Don't add any other explanations. Just change the hard words",
+              text: `From now on, change the words in the sentence that ${targetText} entered so that they can know. Don't add any other explanations. Just change the hard words and Maintain the entered language`,
             },
           },
           contents: {

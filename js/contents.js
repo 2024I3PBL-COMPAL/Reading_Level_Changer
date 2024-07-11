@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const bodyText = targetElement.innerText;
     console.log("Current body text:", bodyText);
     chrome.runtime.sendMessage(
-      { action: "simplifyText", text: bodyText },
+      { action: "simplifyText", text: bodyText, level: message.level },
       (response) => {
         console.log("Received simplified text:", response.simplifiedText);
         targetElement.innerText = response.simplifiedText;
