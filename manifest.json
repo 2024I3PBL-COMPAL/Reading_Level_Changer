@@ -7,9 +7,14 @@
     "default_popup": "main.html",
     "default_icon": "ic.png"
   },
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab", "contextMenus", "storage", "scripting"],
   "background": {
     "service_worker": "js/background.js"
+  },
+  "icons": {
+    "16": "ic.png",
+    "48": "ic.png",
+    "128": "ic.png"
   },
   "content_scripts": [
     {

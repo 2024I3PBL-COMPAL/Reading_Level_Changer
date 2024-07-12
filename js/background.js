@@ -79,3 +79,41 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true; // Will respond asynchronously.
   }
 });
+
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.contextMenus.create({
+    id: "convertText",
+    title: "Change Reading Level Selected Text",
+    contexts: ["selection"],
+  });
+  console.log("Easy Text Converter installed and context menu item added.");
+});
+
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+  if (info.menuItemId === "convertText") {
+    chrome.scripting.executeScript(
+      {
+        target: { tabId: tab.id },
+        function: getSelectedText,
+      },
+      (results) => {
+        if (results && results[0] && results[0].result) {
+          const selectedText = results[0].result;
+          console.log("Selected text:", selectedText);
+          chrome.storage.local.set({ selectedText: selectedText }, () => {
+            chrome.windows.create({
+              url: "main.html",
+              type: "popup",
+              width: 400,
+              height: 300,
+            });
+          });
+        }
+      }
+    );
+  }
+});
+
+function getSelectedText() {
+  return window.getSelection().toString();
+}
