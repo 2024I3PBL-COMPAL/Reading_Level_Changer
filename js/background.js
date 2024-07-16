@@ -1,20 +1,31 @@
 chrome.runtime.onInstalled.addListener(() => {
-  console.log("Easy Text Converter installed.");
+  chrome.contextMenus.create({
+    id: "convertText",
+    title: "Change Reading Level of Selected Text",
+    contexts: ["selection"],
+  });
+  console.log("Easy Text Converter installed and context menu item added.");
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   const GoogleAPIKey = "SECRET";
 
   if (message.action === "simplifyText") {
-    console.log(message.level);
+    console.log(`Simplification level: ${message.level}`);
     let targetText = "";
 
-    if (message.level === 1) {
-      targetText = "kindergartner who Learning English for the first time";
-    } else if (message.level === 2) {
-      targetText = "middle school students";
-    } else if (message.level === 3) {
-      targetText = "adult";
+    switch (message.level) {
+      case 1:
+        targetText = "kindergartner who is learning English for the first time";
+        break;
+      case 2:
+        targetText = "middle school students";
+        break;
+      case 3:
+        targetText = "adult";
+        break;
+      default:
+        targetText = "unknown audience";
     }
 
     fetch(
@@ -32,7 +43,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           },
           contents: {
             parts: {
-              text: message.text.substr(0, 200),
+              text: message.text.substr(0, 500),
             },
           },
           safety_settings: [
@@ -80,15 +91,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
-    id: "convertText",
-    title: "Change Reading Level Selected Text",
-    contexts: ["selection"],
-  });
-  console.log("Easy Text Converter installed and context menu item added.");
-});
-
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "convertText") {
     chrome.scripting.executeScript(
@@ -100,13 +102,10 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         if (results && results[0] && results[0].result) {
           const selectedText = results[0].result;
           console.log("Selected text:", selectedText);
-          chrome.storage.local.set({ selectedText: selectedText }, () => {
-            chrome.windows.create({
-              url: "main.html",
-              type: "popup",
-              width: 400,
-              height: 300,
-            });
+          chrome.tabs.sendMessage(tab.id, {
+            action: "convertInlineText",
+            text: selectedText,
+            level: 1, // Default to level 3, you can change this
           });
         }
       }

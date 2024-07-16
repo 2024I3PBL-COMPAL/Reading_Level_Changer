@@ -1,13 +1,17 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reading Level Changer</title>
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
+    <style>
+      main {
+        padding: 30px;
+        min-width: 300px;
+      }
+    </style>
   </head>
-  <style>
-    main {
-      padding: 5%;
-      min-width: 300px;
-    }
-  </style>
   <body>
     <main>
       <h2>Reading Level Changer</h2>
@@ -18,24 +22,21 @@
         id="customRange1"
         min="1"
         max="3"
-        step="1.0"
+        step="1"
         value="3"
       />
-
       <div class="row pb-2">
-        <div class="col">Kids</div>
+        <div class="col text-start">Kids</div>
         <div class="col text-center">Student</div>
         <div class="col text-end">Adult</div>
       </div>
-
       <button id="convertButton" type="button" class="btn btn-primary">
         Change!
       </button>
-
-      <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
-      <script src="/js/popup.js"></script>
-      <!-- <script src="/js/contents.js"></script>
-      <script src="/js/background.js"></script> -->
+      <div id="result-area"></div>
     </main>
+
+    <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="/js/popup.js"></script>
   </body>
 </html>

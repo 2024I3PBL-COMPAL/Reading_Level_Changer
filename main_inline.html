@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reading Level Changer</title>
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
+    <style>
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 1.5em;
+      }
+
+      .modal-container {
+        position: absolute;
+        left: 5%;
+        bottom: 5%;
+        width: 30%;
+        height: 50%;
+        min-height: 300px;
+        min-width: 300px;
+        background-color: white;
+      }
+
+      .modal-contents-container {
+        padding: 1rem;
+      }
+
+      body {
+        background-color: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="modal-container shadow card">
+      <div class="modal-header">
+        <h5 class="modal-title">Reading Level Changer</h5>
+        <button class="close-btn" id="closeButton">&times;</button>
+      </div>
+
+      <div class="modal-contents-container">
+        <input
+          type="range"
+          class="form-range"
+          id="customRange1"
+          min="1"
+          max="3"
+          step="1"
+          value="1"
+        />
+        <div class="row pb-2">
+          <div class="col text-start">Kids</div>
+          <div class="col text-center">Student</div>
+          <div class="col text-end">Adult</div>
+        </div>
+        <button id="convertButton" type="button" class="btn btn-primary">
+          Change!
+        </button>
+      </div>
+
+      <hr class="dropdown-divider" />
+
+      <div class="modal-contents-container">
+        <div id="result-container">
+          <h5>Result</h5>
+          <div id="result-area"></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="/js/iframe.js"></script>
+  </body>
+</html>
